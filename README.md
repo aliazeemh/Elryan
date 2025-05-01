@@ -72,7 +72,7 @@ The application uses the Platzi Fake Store API (https://api.escuelajs.co/api/v1/
    ```
 2. Run the preview command
    ```bash
-   HOST=localhost PORT=3100 npm run preview
+   PORT=3100 npm run preview
    ```
 3. Open (http://localhost:3100) in your browser
 
