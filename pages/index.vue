@@ -25,19 +25,20 @@
       <!-- Products Skeleton -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <SkeletonLoader
-          v-for="n in 12"
+          v-for="n in 10"
           :key="n"
           type="product"
         />
       </div>
     </template>
 
-    <!-- Last Visited Products -->
-    <section v-else-if="lastVisited.length > 0" class="mb-12">
+
+    <!-- Recently Viewed Products -->
+    <section v-if="lastVisited.length > 0" class="mb-12">
       <h2 class="text-2xl font-bold mb-4">Recently Viewed</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         <ProductCard
-          v-for="product in lastVisited"
+          v-for="product in [...lastVisited].reverse().slice(0, 5)"
           :key="product.id"
           :product="product"
           class="transition-transform duration-300 hover:scale-105"
@@ -45,6 +46,20 @@
       </div>
     </section>
 
+    
+    <!-- Favorites -->
+    <section v-if="favorites.length > 0" class="mb-12">
+      <h2 class="text-2xl font-bold mb-4">Favorites</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <ProductCard
+          v-for="product in [...favorites].reverse().slice(0, 5)"
+          :key="product.id"
+          :product="product"
+          class="transition-transform duration-300 hover:scale-105"
+        />
+      </div>
+    </section>
+    
     <!-- Categories -->
     <section v-if="!loading && categories.length" class="mb-12">
       <h2 class="text-2xl font-bold mb-4">Categories</h2>
@@ -52,7 +67,7 @@
         <NuxtLink
           v-for="category in categories"
           :key="category.id"
-          :to="`/categories/${category.id}`"
+          :to="`/products/category/${category.slug}`"
           class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
         >
           <div class="aspect-square relative">
@@ -99,61 +114,6 @@
         />
       </div>
     </section>
-    <section v-else class="mb-12">
-      <h2 class="text-2xl font-bold mb-4">Categories</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        <NuxtLink
-          v-for="category in categories"
-          :key="category.id"
-          :to="`/categories/${category.id}`"
-          class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-        >
-          <div class="aspect-square relative">
-            <NuxtImg
-              :src="category.image || 'https://via.placeholder.com/200'"
-              :alt="category.name"
-              class="w-full h-full object-cover"
-              loading="lazy"
-              preset="thumbnail"
-              placeholder
-            />
-          </div>
-          <div class="p-4 text-center">
-            <h3 class="font-semibold text-gray-800" v-text="category.name" />
-          </div>
-        </NuxtLink>
-      </div>
-    </section>
-
-    <!-- Products Grid -->
-    <section v-if="!loading" class="mb-12">
-      <h2 class="text-2xl font-bold mb-4">All Products</h2>
-      <div v-if="displayedProducts.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <ProductCard
-          v-for="product in displayedProducts"
-          :key="product.id"
-          :product="product"
-          class="transition-transform duration-300 hover:scale-105"
-        />
-      </div>
-      <div v-else class="text-center py-12">
-        <p class="text-gray-500">No products found</p>
-      </div>
-      <!-- Pagination -->
-      <div v-if="totalPages > 1" class="mt-8 flex justify-center gap-2">
-        <button
-          v-for="page in totalPages"
-          :key="page"
-          @click="currentPage = page"
-          class="px-4 py-2 rounded-md transition-colors duration-200"
-          :class="{
-            'bg-blue-600 text-white': currentPage === page,
-            'bg-gray-200 text-gray-700 hover:bg-gray-300': currentPage !== page
-          }"
-          v-text="page"
-        />
-      </div>
-    </section>
   </div>
 </template>
 
@@ -171,6 +131,7 @@ interface Category {
   id: number
   name: string
   image: string
+  slug: string
 }
 
 import { useProductStore } from '~/stores/products'
@@ -181,13 +142,14 @@ const categoryStore = useCategoryStore()
 
 const searchQuery = ref('')
 const currentPage = ref(1)
-const itemsPerPage = 12
+const itemsPerPage = 10
 const categories = ref<Category[]>([])
 const products = ref<Product[]>([])
 const loading = ref(true)
 
 // Computed
 const lastVisited = computed(() => productStore.lastVisited)
+const favorites = computed(() => productStore.favorites)
 const totalPages = computed(() => Math.ceil(products.value.length / itemsPerPage))
 
 const searchResults = computed(() => {

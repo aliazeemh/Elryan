@@ -10,12 +10,23 @@
             </NuxtLink>
           </div>
           
-          <div class="flex items-center">
+          <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <NuxtLink
+              to="/"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-blue-600"
+            >
+              Home
+            </NuxtLink>
+            <NuxtLink
+              to="/categories"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-blue-600"
+            >
+              Categories
+            </NuxtLink>
             <NuxtLink
               to="/favorites"
-              class="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600"
+              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-blue-600"
             >
-              <Icon name="material-symbols:star" class="w-5 h-5 mr-1" />
               Favorites
             </NuxtLink>
           </div>

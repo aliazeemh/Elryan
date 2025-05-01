@@ -1,5 +1,6 @@
 <template>
   <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <NuxtLink :to="`/products/${product.id}`" class="block">
     <div class="relative aspect-square">
       <NuxtImg
         :src="product.images?.[0] || 'https://via.placeholder.com/400'"
@@ -20,14 +21,13 @@
       </button>
     </div>
     <div class="p-4">
-      <NuxtLink :to="`/products/${product.id}`" class="block">
         <h3 class="text-lg font-semibold text-gray-800 mb-2 hover:text-blue-600">
           {{ product.title }}
         </h3>
         <p class="text-gray-600 text-sm mb-2">{{ product.category.name }}</p>
         <p class="text-xl font-bold text-blue-600">${{ product.price }}</p>
-      </NuxtLink>
-    </div>
+      </div>
+    </NuxtLink>
   </div>
 </template>
 

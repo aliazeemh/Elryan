@@ -23,24 +23,30 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt'
   ],
   pwa: {
-    registerType: 'autoUpdate',
+    registerType: 'prompt',
+    strategies: 'generateSW',
+    includeManifestIcons: true,
     manifest: {
       name: 'Elryan E-Shop',
       short_name: 'Elryan',
+      description: 'One stop solution for all your needs',
       theme_color: '#ffffff',
+      background_color: '#ffffff',
+      display: 'standalone',
+      start_url: '/',
       icons: [
         {
-          src: '192x192.png',
+          src: '/192x192.png',
           sizes: '192x192',
           type: 'image/png'
         },
         {
-          src: '512x512.png',
+          src: '/512x512.png',
           sizes: '512x512',
           type: 'image/png'
         },
         {
-          src: '512x512.png',
+          src: '/512x512.png',
           sizes: '512x512',
           type: 'image/png',
           purpose: 'any maskable'
@@ -48,16 +54,34 @@ export default defineNuxtConfig({
       ]
     },
     workbox: {
-      navigateFallback: '/',
+      navigateFallback: undefined,
       globPatterns: ['**/*.{js,css,html,png,jpg,svg,ico}'],
       runtimeCaching: [
         {
           urlPattern: 'https://api.escuelajs.co/api/v1/*',
-          handler: 'CacheFirst',
+          handler: 'NetworkFirst',
           options: {
             cacheName: 'api-cache',
             cacheableResponse: {
               statuses: [0, 200]
+            },
+            expiration: {
+              maxEntries: 100,
+              maxAgeSeconds: 60 * 60 * 24 // 24 hours
+            }
+          }
+        },
+        {
+          urlPattern: 'https://via.placeholder.com/*',
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'image-cache',
+            cacheableResponse: {
+              statuses: [0, 200]
+            },
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
             }
           }
         }
@@ -69,8 +93,9 @@ export default defineNuxtConfig({
     },
     devOptions: {
       enabled: true,
-      suppressWarnings: true,
-      type: 'module'
+      suppressWarnings: false,
+      type: 'module',
+      navigateFallbackAllowlist: [/^\//]
     }
   },
   nitro: {
@@ -87,7 +112,16 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'A modern e-commerce website built with Nuxt 3' }
+        { name: 'description', content: 'One stop solution for all your needs' },
+        { name: 'theme-color', content: '#ffffff' },
+        { name: 'mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+        { name: 'apple-mobile-web-app-title', content: 'Elryan' }
+      ],
+      link: [
+        { rel: 'apple-touch-icon', href: '/192x192.png' },
+        { rel: 'manifest', href: '/manifest.webmanifest' }
       ]
     }
   },
@@ -96,6 +130,7 @@ export default defineNuxtConfig({
       apiBase: 'https://api.escuelajs.co/api/v1'
     }
   },
+  css: ['~/assets/css/main.css'],
   image: {
     provider: 'ipx',
     presets: {
