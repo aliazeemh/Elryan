@@ -63,3 +63,17 @@ The application uses the Platzi Fake Store API (https://api.escuelajs.co/api/v1/
 - Pagination for product listings
 - State persistence for better user experience
 - Optimized API calls
+
+## PWA 
+
+1. Run the build command
+   ```bash
+   npm run build
+   ```
+2. Run the preview command
+   ```bash
+   HOST=localhost PORT=3100 npm run preview
+   ```
+3. Open (http://localhost:3100) in your browser
+
+4. Installation icon will appear on Chrome location bar on right.
