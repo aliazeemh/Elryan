@@ -60,7 +60,10 @@
                   @click="removeFromFavorites(product)"
                   class="text-red-600 hover:text-red-800"
                 >
-                  Remove
+                <Icon
+                  name="material-symbols:delete-outline"
+                  class="text-red-500 w-6 h-6"
+                />
                 </button>
               </td>
             </tr>

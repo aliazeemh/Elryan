@@ -5,7 +5,7 @@
       <div class="relative">
         <div class="aspect-square mb-4">
           <NuxtImg
-            :src="product.images?.[selectedImage] || 'https://via.placeholder.com/400'"
+            :src="product.images?.[selectedImage] || 'https://placehold.co/600x400'"
             :alt="product.title"
             class="w-full h-full object-cover rounded-lg"
             preset="product"
@@ -21,7 +21,7 @@
             :class="selectedImage === index ? 'border-blue-500' : 'border-transparent'"
           >
             <NuxtImg
-              :src="image || 'https://via.placeholder.com/200'"
+              :src="image || 'https://placehold.co/300x200'"
               :alt="`${product.title} - Image ${index + 1}`"
               class="w-full h-full object-cover"
               preset="thumbnail"
@@ -52,7 +52,7 @@
         <div class="mb-6">
           <h2 class="text-lg font-semibold mb-2">Category</h2>
           <NuxtLink
-            :to="`/categories/${product.category.id}`"
+            :to="`/products/category/${product.category.slug}`"
             class="inline-flex items-center text-blue-600 hover:underline"
           >
             {{ product.category.name }}
@@ -95,7 +95,7 @@ const toggleFavorite = () => {
 // Fetch Data
 onMounted(async () => {
   try {
-    const response = await fetch(`${config.public.apiBase}/products/${route.params.id}`)
+    const response = await fetch(`${config.public.apiBase}/products/slug/${route.params.slug}`)
     product.value = await response.json()
     
     if (product.value) {

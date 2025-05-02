@@ -38,7 +38,7 @@
       <h2 class="text-2xl font-bold mb-4">Recently Viewed</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         <ProductCard
-          v-for="product in [...lastVisited].reverse().slice(0, 5)"
+          v-for="product in [...lastVisited].slice(0, 5)"
           :key="product.id"
           :product="product"
           class="transition-transform duration-300 hover:scale-105"
@@ -59,7 +59,7 @@
         />
       </div>
     </section>
-    
+
     <!-- Categories -->
     <section v-if="!loading && categories.length" class="mb-12">
       <h2 class="text-2xl font-bold mb-4">Categories</h2>
@@ -72,7 +72,7 @@
         >
           <div class="aspect-square relative">
             <NuxtImg
-              :src="category.image || 'https://via.placeholder.com/200'"
+              :src="category.image || 'https://placehold.co/300x200'"
               :alt="category.name"
               class="w-full h-full object-cover"
               loading="lazy"

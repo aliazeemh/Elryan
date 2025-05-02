@@ -43,7 +43,7 @@
     <footer class="bg-white border-t mt-12">
       <div class="container mx-auto px-4 py-6">
         <p class="text-center text-gray-500 text-sm">
-          © {{ new Date().getFullYear() }} NuxtStore. Built with Nuxt 3.
+          © {{ new Date().getFullYear() }} Elryan. All rights reserved.
         </p>
       </div>
     </footer>

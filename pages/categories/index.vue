@@ -23,7 +23,7 @@
       >
         <div class="aspect-square relative">
           <NuxtImg
-            :src="category.image || 'https://via.placeholder.com/200'"
+            :src="category.image || 'https://placehold.co/300x200'"
             :alt="category.name"
             class="w-full h-full object-cover"
             loading="lazy"

@@ -12,7 +12,7 @@ export default defineNuxtConfig({
       exclude: ['fsevents']
     }
   },
-  compatibilityDate: '2025-05-01',
+  compatibilityDate: '2025-04-26',
   modules: [
     ['@pinia/nuxt', {
       autoImports: ['defineStore', 'acceptHMRUpdate']
@@ -24,8 +24,6 @@ export default defineNuxtConfig({
   ],
   pwa: {
     registerType: 'prompt',
-    strategies: 'generateSW',
-    includeManifestIcons: true,
     manifest: {
       name: 'Elryan E-Shop',
       short_name: 'Elryan',
@@ -54,12 +52,12 @@ export default defineNuxtConfig({
       ]
     },
     workbox: {
-      navigateFallback: undefined,
+      navigateFallback: '/',
       globPatterns: ['**/*.{js,css,html,png,jpg,svg,ico}'],
       runtimeCaching: [
         {
           urlPattern: 'https://api.escuelajs.co/api/v1/*',
-          handler: 'NetworkFirst',
+          handler: 'CacheFirst',
           options: {
             cacheName: 'api-cache',
             cacheableResponse: {
@@ -72,8 +70,8 @@ export default defineNuxtConfig({
           }
         },
         {
-          urlPattern: 'https://via.placeholder.com/*',
-          handler: 'NetworkFirst',
+          urlPattern: 'https://placehold.co/*',
+          handler: 'CacheFirst',
           options: {
             cacheName: 'image-cache',
             cacheableResponse: {
