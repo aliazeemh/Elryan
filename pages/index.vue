@@ -25,7 +25,7 @@
       <!-- Products Skeleton -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <SkeletonLoader
-          v-for="n in 10"
+          v-for="n in itemsPerPage"
           :key="n"
           type="product"
         />
@@ -139,10 +139,11 @@ import { useCategoryStore } from '~/stores/categories'
 
 const productStore = useProductStore()
 const categoryStore = useCategoryStore()
+const config = useRuntimeConfig();
 
 const searchQuery = ref('')
 const currentPage = ref(1)
-const itemsPerPage = 10
+let itemsPerPage = config.public.itemsPerPage
 const categories = ref<Category[]>([])
 const products = ref<Product[]>([])
 const loading = ref(true)

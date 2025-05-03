@@ -127,10 +127,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'https://api.escuelajs.co/api/v1'
+      apiBase: 'https://api.escuelajs.co/api/v1',
+      itemsPerPage: 10
     }
   },
-  css: ['~/assets/css/main.css'],
   image: {
     provider: 'ipx',
     presets: {

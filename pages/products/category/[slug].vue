@@ -99,12 +99,13 @@ import type { Product } from '~/stores/products'
 const route = useRoute()
 const categoryStore = useCategoryStore()
 const productStore = useProductStore()
+const config = useRuntimeConfig()
 
 // State
 const category = ref<Category | null>(null)
 const products = ref<Product[]>([])
 const currentPage = ref(1)
-const itemsPerPage = 10
+let itemsPerPage = config.public.itemsPerPage
 const loading = ref(true)
 const error = ref('')
 const retryCount = ref(0)

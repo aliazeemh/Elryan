@@ -18,7 +18,7 @@
       <NuxtLink
         v-for="category in categories"
         :key="category.id"
-        :to="`/products/category/${category.id}`"
+        :to="`/products/category/${category.slug}`"
         class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
       >
         <div class="aspect-square relative">
