@@ -34,7 +34,7 @@
                   </div>
                   <div class="ml-4">
                     <NuxtLink
-                      :to="`/products/${product.id}`"
+                      :to="`/products/${product.slug}`"
                       class="text-sm font-medium text-blue-600 hover:underline"
                     >
                       {{ product.title }}
